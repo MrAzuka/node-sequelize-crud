@@ -1,7 +1,8 @@
 const User = require("../../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+require('dotenv').config()
+const { JWT_SECRET } = process.env
 
 exports.register = async (req, res) => {
     try {
@@ -42,7 +43,7 @@ exports.login = async (req, res) => {
         }
 
         // NOTE: the jwt secret should be saved in an env file
-        const jwtToken = jwt.sign({ username: checkIfUserExist.username, role: checkIfUserExist.role }, "JWT_SECRET");
+        const jwtToken = jwt.sign({ username: checkIfUserExist.username, role: checkIfUserExist.role }, JWT_SECRET);
 
         return res.status(200).json({ message: "login successful", token: jwtToken });
     } catch (error) {

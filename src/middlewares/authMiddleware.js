@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
-
-
+require('dotenv').config()
+const { JWT_SECRET } = process.env
 exports.authUser = async (req, res, next) => {
     try {
         // Check for an authorization token
@@ -17,7 +17,7 @@ exports.authUser = async (req, res, next) => {
         let token = splitHeader[1]
 
         // NOTE: Again jwt secret should be in an env file
-        const verifyJWT = await jwt.verify(token, "JWT_SECRET")
+        const verifyJWT = await jwt.verify(token, JWT_SECRET)
         if (!verifyJWT) {
             res.status(401).json({ message: "Authorization error, Please Login" })
         } else {
