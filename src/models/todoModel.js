@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../utils/db");
+const { sequelize } = require("../utils/db");
 
-const Article = sequelize.define("Article", {
+const Todo = sequelize.define("Todo", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -24,4 +24,4 @@ const Article = sequelize.define("Article", {
 
 }, { timestamps: true });
 
-module.exports = Article;
+module.exports = Todo;

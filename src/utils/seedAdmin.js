@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt')
 
 exports.createAdmin = async () => {
     try {
-        // Check if Admin already exists
+        // // Check if Admin already exists
         const findAdmin = await User.findOne({ role: "admin" })
         if (findAdmin) return console.log("Admin already exists")
 
         // Create new Admin
         const salt = await bcrypt.genSalt(10)
-        const hashPassword = await bcrypt.hash(admin, salt)
-        const createAdmin = await User.create({
+        const hashPassword = await bcrypt.hash("admin", salt)
+        const createAdmin = await new User({
 
             username: "admin",
             email: "admin@admin.com",

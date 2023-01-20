@@ -5,6 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 const { connectToDb } = require('./utils/db')
 const apiRoutes = require("./routes/index")
+const { createAdmin } = require("./utils/seedAdmin")
 
 
 // Initializing the app
@@ -31,6 +32,7 @@ app.listen(port, async (error) => {
     } else {
         console.log(`Server is running on PORT ${port}`);
         await connectToDb();
+        await createAdmin()
     }
 
 })

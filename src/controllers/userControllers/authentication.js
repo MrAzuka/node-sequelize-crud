@@ -16,14 +16,11 @@ exports.register = async (req, res) => {
 
         const newUser = new User({ username: username, email: email, password: hashedPassword });
         const savedUser = await newUser.save()
-        if (!savedUser) {
-            return res.status(400).json({ error: "Cannot register user at the moment!" });
-        } else {
-            return res.status(200).json({ message: "registration successful" });
-        }
+
+        return res.status(200).json({ message: "registration successful" });
 
     } catch (error) {
-        return res.status(500).json({ message: "server error", error: error });
+        return res.status(400).json({ message: "Cannot register user at the moment!", error });
     }
 
 }
@@ -50,6 +47,6 @@ exports.login = async (req, res) => {
         return res.status(200).json({ message: "login successful", token: jwtToken });
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: "server error", error });
+        return res.status(400).json({ message: "login error", error });
     }
 }
