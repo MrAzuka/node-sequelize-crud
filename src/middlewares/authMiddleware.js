@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 
-exports.authenticateUser = async (req, res, next) => {
+exports.authUser = async (req, res, next) => {
     try {
         // Check for an authorization token
         if (!req.headers.authorization) {
@@ -18,26 +18,16 @@ exports.authenticateUser = async (req, res, next) => {
 
         // NOTE: Again jwt secret should be in an env file
         const verifyJWT = await jwt.verify(token, JWT_SECRET)
-        if (verifyJWT) {
-
+        if (!verifyJWT) {
+            res.status(401).json({ message: "Authorization error, Please Login" })
         } else {
-
+            req.user = verifyJWT
+            next()
         }
 
-        // Move to the next function
-        next()
     } catch (error) {
-
+        return res.status(500).json({ error })
     }
 }
 
 
-(err, decodedToken) => {
-    if (err) {
-        res.status(500).json({ err })
-    }
-    if (!decodedToken) {
-        res.status(401).json({ message: "Authorization error, Please Login" })
-    }
-    // made the decoded token global
-    req.user = decodedToken

@@ -40,10 +40,7 @@ exports.login = async (req, res) => {
     }
 
     // NOTE: the jwt secret should be saved in an env file
-    const jwtToken = jwt.sign(
-        { username: checkIfUserExist.username },
-        process.env.JWT_SECRET
-    );
+    const jwtToken = jwt.sign({ username: checkIfUserExist.username }, JWT_SECRET);
 
     return res.status(200).json({ message: "login successful", token: jwtToken });
 }
