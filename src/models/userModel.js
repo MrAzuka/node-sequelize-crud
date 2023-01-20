@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../utils/db");
+const { sequelize } = require("../utils/db");
 
 const User = sequelize.define("User", {
     id: {
@@ -31,6 +31,10 @@ const User = sequelize.define("User", {
             max: 16
         }
     },
+    role: {
+        type: DataTypes.STRING,
+        defaultValue: "user"
+    }
 
 });
 

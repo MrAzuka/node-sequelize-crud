@@ -4,14 +4,12 @@ const helmet = require('helmet');
 const cors = require('cors');
 require('dotenv').config();
 const { connectToDb } = require('./utils/db')
+const apiRoutes = require("./routes/index")
 
 
 // Initializing the app
 const app = express();
 const port = process.env.PORT || '5000';
-
-
-
 
 app.use(morgan('dev'));
 app.use(helmet());
@@ -25,6 +23,7 @@ app.get('/', (req, res) => {
     });
 });
 
+app.use('/api', apiRoutes)
 
 app.listen(port, async (error) => {
     if (error) {

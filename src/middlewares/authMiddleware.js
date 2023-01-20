@@ -17,7 +17,7 @@ exports.authUser = async (req, res, next) => {
         let token = splitHeader[1]
 
         // NOTE: Again jwt secret should be in an env file
-        const verifyJWT = await jwt.verify(token, JWT_SECRET)
+        const verifyJWT = await jwt.verify(token, "JWT_SECRET")
         if (!verifyJWT) {
             res.status(401).json({ message: "Authorization error, Please Login" })
         } else {
@@ -30,4 +30,10 @@ exports.authUser = async (req, res, next) => {
     }
 }
 
+exports.checkIfAdmin = (req, res, next) => {
+    if (req.user.role !== "admin") {
+        res.status(401).json({ message: "Route restricted to admin only" })
+    }
+    next()
 
+}
