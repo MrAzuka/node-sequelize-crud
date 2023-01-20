@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt')
-
+require('dotenv').config()
+const { admin_password } = process.env
 
 exports.createAdmin = async () => {
     try {
@@ -10,7 +11,7 @@ exports.createAdmin = async () => {
 
         // Create new Admin
         const salt = await bcrypt.genSalt(10)
-        const hashPassword = await bcrypt.hash("admin", salt)
+        const hashPassword = await bcrypt.hash(admin_password, salt)
         const createAdmin = await new User({
 
             username: "admin",
